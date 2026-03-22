@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg-primary: #0b0e17; /* Deep almost-black blue for global background */
+  --bg-secondary: #12182b; /* Slightly lighter deep blue */
+  --bg-tertiary: rgba(18, 24, 43, 0.6);
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --accent-color: #9d6fff; /* Vibrant purple matching the reference */
+  --accent-hover: #b894ff;
+  --accent-gradient: linear-gradient(135deg, #b894ff 0%, #7e52ff 100%);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(25, 30, 50, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Utility Classes */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Fix for móviles: evitar cartulinas grises (bug visual por el fondo animado Spline/WebGL y el blur en iOS/Android) */
+@media (max-width: 768px) {
+  .glass, .service-card, .stat-item, .trust-card, .contact-box {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #12182b !important;
+    background-color: #12182b !important;
+    /* The next properties guarantee that the mobile browser stops trying to mix transparency layers */
+    isolation: isolate !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+  }
+}
+
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* Hide Spline Watermark */
+a[href*="spline.design"],
+.spline-watermark,
+#spline-watermark {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}

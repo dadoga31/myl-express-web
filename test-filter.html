@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { background: #ccc; display: flex; align-items: center; justify-content: space-around; height: 100vh; margin: 0; }
+  .box { width: 100px; height: 100px; background: #000; border: 5px solid cyan; display:grid; place-items:center; color:cyan; font-family:sans-serif;}
+  .filtered-1 { filter: hue-rotate(90deg); }
+  .filtered-2 { filter: invert(1) hue-rotate(180deg); } 
+  .filtered-3 { filter: invert(1) hue-rotate(90deg); }
+  .filtered-4 { filter: invert(1) hue-rotate(-90deg); }
+</style>
+</head>
+<body>
+  <div class="box">Original</div>
+  <div class="box filtered-1">H 90</div>
+  <div class="box filtered-2">I 1 H 180</div>
+  <div class="box filtered-3">I 1 H 90</div>
+  <div class="box filtered-4">I 1 H -90</div>
+</body>
+</html>
