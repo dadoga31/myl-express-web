@@ -171,7 +171,7 @@ function App() {
         <section className="hero-section">
           <div className="hero-grid">
             <motion.div 
-              className="hero-image-col animate-fade-in"
+              className="hero-image-col"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -182,7 +182,7 @@ function App() {
             </motion.div>
 
             <motion.div 
-              className="hero-text-col animate-fade-in"
+              className="hero-text-col"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -194,20 +194,30 @@ function App() {
               <h1 className="hero-title">
                 La logística <span className="text-gradient">inteligente y rápida</span> que necesitas
               </h1>
-              <p className="hero-subtitle delay-100 animate-fade-in">
+              <motion.p 
+                className="hero-subtitle"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 Optimizamos la entrega de tus paquetes y somos el motor logístico de tu tienda online.
-              </p>
-              <div className="hero-actions delay-200 animate-fade-in">
+              </motion.p>
+              <motion.div 
+                className="hero-actions"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
                 <a href="#servicios" className="btn-primary btn-large">Descubrir Servicios</a>
                 <a href="#contacto" className="btn-secondary btn-large">Solicitar Presupuesto</a>
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.div 
-              className="hero-stats-wrapper delay-300 animate-fade-in"
+              className="hero-stats-wrapper"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
             >
               <div className="stats-container">
                 <div className="stat-item glass">
@@ -391,14 +401,14 @@ function App() {
               ].map((step, idx) => (
                 <motion.div 
                   key={idx} 
-                  className="process-step glass"
+                  className="process-step"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                 >
-                  <div className="process-badge">Paso 0{idx + 1}</div>
-                  <div className="process-icon">{step.icon}</div>
+                  <div className="process-number-hologram">0{idx + 1}</div>
+                  <div className="process-icon-glow">{step.icon}</div>
                   <h4>{step.title}</h4>
                   <p>{step.desc}</p>
                 </motion.div>

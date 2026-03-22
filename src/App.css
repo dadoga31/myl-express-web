@@ -431,7 +431,7 @@
 
 .service-card {
   border-radius: 1.5rem;
-  transition: all 0.4s ease; 
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease; 
   background: var(--bg-secondary);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--glass-border);
@@ -740,7 +740,7 @@
 .process-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-top: 3rem;
 }
 @media (min-width: 768px) {
@@ -748,67 +748,77 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+@media (min-width: 1024px) {
+  .process-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 .process-step {
-  background: var(--bg-secondary);
-  border: 1px solid var(--glass-border);
-  padding: 2.5rem;
-  border-radius: 1.5rem;
+  background: rgba(15, 17, 26, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 2px solid rgba(139, 92, 246, 0.4); 
+  padding: 2.5rem 1.75rem;
+  border-radius: 1rem;
   position: relative;
   text-align: left;
-  transition: all 0.4s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
-@media (min-width: 1024px) {
-  .process-step:hover {
-    transform: translateY(-8px);
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 10px 40px rgba(139, 92, 246, 0.15);
-  }
+.process-step:hover {
+  transform: translateY(-8px);
+  border-top-color: rgba(139, 92, 246, 0.8);
+  background: rgba(20, 22, 35, 0.7);
+  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.15);
 }
-.process-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
-  padding-bottom: 1.5rem;
+.process-number-hologram {
+  position: absolute;
+  top: -1rem;
+  right: -0.5rem;
+  font-size: 7rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(139, 92, 246, 0.15);
+  z-index: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
 }
-.process-icon {
-  width: 60px;
-  height: 60px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.15);
-  border-radius: 1rem; 
+.process-step:hover .process-number-hologram {
+  -webkit-text-stroke: 2px rgba(139, 92, 246, 0.4);
+  transform: scale(1.05);
+}
+.process-icon-glow {
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, #9333ea, #6b21a8);
+  box-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+  border-radius: 50%; 
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-color);
-  flex-shrink: 0;
-}
-.process-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-.process-badge {
-  font-size: 0.85rem;
-  color: var(--accent-color);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  color: #ffffff;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 1;
 }
 .process-step h4 {
-  font-size: 1.35rem;
-  margin: 0;
+  font-size: 1.25rem;
+  margin: 0 0 0.75rem 0;
   font-weight: 700;
+  position: relative;
+  z-index: 1;
+  color: #ffffff;
 }
 .process-step p {
-  color: var(--text-secondary);
-  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
 /* Integrations Scroll Marquee */
