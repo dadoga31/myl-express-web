@@ -336,14 +336,12 @@ function App() {
                 <div className="video-showcase">
                   <div className="video-container">
                     <video 
+                      src="/camion.mp4"
                       autoPlay 
                       loop 
-                      muted 
-                      playsInline
-                      preload="auto"
-                    >
-                      <source src="/camion.mp4" type="video/mp4" />
-                    </video>
+                      muted={true}
+                      playsInline={true}
+                    />
                     <div className="video-inner-overlay">
                       <div className="video-tag">
                         <Truck size={20} className="text-accent"/>
