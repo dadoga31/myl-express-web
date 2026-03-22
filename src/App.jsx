@@ -517,10 +517,12 @@ function App() {
               
               <div className="contact-form-placeholder">
                 <h3>Envíanos un Mensaje</h3>
-                <form className="minimal-form" onSubmit={(e) => e.preventDefault()}>
-                  <input type="text" placeholder="Tu Nombre" className="form-input" />
-                  <input type="email" placeholder="Tu Email o Teléfono" className="form-input" />
-                  <textarea placeholder="¿En qué podemos ayudarte?" className="form-input form-textarea"></textarea>
+                <form className="minimal-form" action="https://formsubmit.co/docasal28@gmail.com" method="POST">
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_subject" value="Nuevo mensaje desde la web MYL Exprés" />
+                  <input type="text" name="nombre" placeholder="Tu Nombre" className="form-input" required />
+                  <input type="text" name="contacto" placeholder="Tu Email o Teléfono" className="form-input" required />
+                  <textarea name="mensaje" placeholder="¿En qué podemos ayudarte?" className="form-input form-textarea" required></textarea>
                   <button type="submit" className="btn-primary" style={{width: '100%'}}>Enviar Mensaje</button>
                 </form>
               </div>
