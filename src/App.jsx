@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Spline from '@splinetool/react-spline';
-import { Truck, MapPin, RefreshCcw, Package, Box, Clock, HeadphonesIcon, Smartphone, ChevronRight } from 'lucide-react';
+import { Truck, MapPin, RefreshCcw, Package, Box, Clock, HeadphonesIcon, Smartphone, ChevronRight, Target, ChevronDown, ChevronUp } from 'lucide-react';
+import { SiShopify, SiWoocommerce, SiPrestashop, SiWix, SiEtsy, SiSquare } from 'react-icons/si';
+import { FaAmazon, FaMagento } from 'react-icons/fa';
 import './App.css';
 
 const legalContent = {
@@ -39,6 +41,28 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
         </div>
         <div className="modal-body" dangerouslySetInnerHTML={{ __html: content }} />
       </motion.div>
+    </div>
+  );
+};
+
+const FAQItem = ({ question, answer }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className={`faq-item glass ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
+      <div className="faq-question">
+        <h4>{question}</h4>
+        {isOpen ? <ChevronUp size={20} className="text-accent" /> : <ChevronDown size={20} className="text-accent" />}
+      </div>
+      {isOpen && (
+        <motion.div 
+          className="faq-answer"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+        >
+          <p>{answer}</p>
+        </motion.div>
+      )}
     </div>
   );
 };
@@ -344,8 +368,111 @@ function App() {
           </div>
         </section>
 
+        {/* Cómo Trabajamos / Proceso */}
+        <section className="section-padding">
+          <div className="section-container">
+            <motion.div 
+              className="section-header"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="section-title">Tu logística, en 4 sencillos pasos</h2>
+              <p className="section-desc">Diseñamos un flujo de trabajo optimizado para que te despreocupes por completo de los envíos de tu negocio o compras personales.</p>
+            </motion.div>
+            
+            <div className="process-grid">
+              {[
+                { title: 'Recepción', desc: 'Recibimos tus mercancías en nuestro almacén en Illescas y las inventariamos al instante.', icon: <Package size={28}/> },
+                { title: 'Almacenaje Seguro', desc: 'Guardamos tu stock de manera segura bajo estrictos controles de calidad.', icon: <Box size={28}/> },
+                { title: 'Picking y Packing', desc: 'Preparamos los pedidos con material premium cuidando enormemente la presentación final.', icon: <Target size={28}/> },
+                { title: 'Envío Exprés', desc: 'Despachamos los paquetes diariamente mediante las mejores y más rápidas rutas logísticas.', icon: <Truck size={28}/> }
+              ].map((step, idx) => (
+                <motion.div 
+                  key={idx} 
+                  className="process-step glass"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                >
+                  <div className="process-badge">Paso 0{idx + 1}</div>
+                  <div className="process-icon">{step.icon}</div>
+                  <h4>{step.title}</h4>
+                  <p>{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Integraciones E-commerce */}
+        <section className="section-padding bg-alt overflow-hidden">
+          <div className="section-container text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 style={{fontSize: '2rem', marginBottom: '3rem', fontWeight: '700'}}>Perfectamente compatible con tu Tienda</h3>
+              
+              <div className="marquee-container">
+                <div className="marquee-content">
+                  {[
+                    { name: 'Shopify', icon: <SiShopify color="#95BF47" /> },
+                    { name: 'WooCommerce', icon: <SiWoocommerce color="#96588A" /> },
+                    { name: 'PrestaShop', icon: <SiPrestashop color="#DF0067" /> },
+                    { name: 'Magento', icon: <FaMagento color="#F26322" /> },
+                    { name: 'Amazon', icon: <FaAmazon color="#FF9900" /> },
+                    { name: 'Wix', icon: <SiWix color="#FFFFFF" /> },
+                    { name: 'Etsy', icon: <SiEtsy color="#F16521" /> },
+                    { name: 'Square', icon: <SiSquare color="#FFFFFF" /> }
+                  ].map((platform) => (
+                    <div key={`run1-${platform.name}`} className="marquee-item glass">
+                      {platform.icon}
+                      <span>{platform.name}</span>
+                    </div>
+                  ))}
+                  {[
+                    { name: 'Shopify', icon: <SiShopify color="#95BF47" /> },
+                    { name: 'WooCommerce', icon: <SiWoocommerce color="#96588A" /> },
+                    { name: 'PrestaShop', icon: <SiPrestashop color="#DF0067" /> },
+                    { name: 'Magento', icon: <FaMagento color="#F26322" /> },
+                    { name: 'Amazon', icon: <FaAmazon color="#FF9900" /> },
+                    { name: 'Wix', icon: <SiWix color="#FFFFFF" /> },
+                    { name: 'Etsy', icon: <SiEtsy color="#F16521" /> },
+                    { name: 'Square', icon: <SiSquare color="#FFFFFF" /> }
+                  ].map((platform) => (
+                    <div key={`run2-${platform.name}`} className="marquee-item glass">
+                      {platform.icon}
+                      <span>{platform.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="section-padding">
+          <div className="section-container">
+             <div className="section-header">
+                <h2 className="section-title">Preguntas Frecuentes</h2>
+                <p className="section-desc">Resolvemos las dudas más habituales sobre nuestro servicio de paquetería y almacenamiento logístico en Illescas.</p>
+             </div>
+             <div className="faq-list">
+               <FAQItem question="¿Puedo integrar mi tienda online directamente con vosotros?" answer="Sí. Trabajamos con los CMS más populares del mercado como Shopify o WooCommerce. Nos adaptamos a tu flujo de pedidos para que todo el proceso sea automático desde el momento en que se procesa la compra en tu web." />
+               <FAQItem question="¿Hacéis envíos internacionales para particulares y empresas?" answer="Por supuesto. Ofrecemos cobertura tanto a nivel nacional (Península e Islas) como exportación a nivel internacional apoyándonos en una potente red con tarifas muy competitivas." />
+               <FAQItem question="¿Tengo que asegurar un volumen mínimo al mes para trabajar con MYL Exprés?" answer="No, en absoluto. Nuestro servicio está diseñado tanto para pequeños emprendedores con muy poco volumen al mes como para grandes gigantes del e-commerce. Creceremos contigo a tu propio ritmo garantizándote el mejor precio." />
+               <FAQItem question="Si un destinatario no está en casa para recibir el paquete, ¿qué ocurre?" answer="Además de re-entregas concertadas, contamos con servicios de recogida en un Punto Premium seguro en nuestro propio local físico de Illescas. Nos aseguramos incansablemente de que la mercancía siempre llegue impecable a sus dueños." />
+             </div>
+          </div>
+        </section>
+
         {/* Contact Section */}
-        <section id="contacto" className="section-padding">
+        <section id="contacto" className="section-padding bg-alt">
           <div className="section-container">
             <motion.div 
               className="contact-box glass"
