@@ -877,6 +877,40 @@
   color: var(--text-primary);
 }
 
+@media (max-width: 768px) {
+  .marquee-container {
+    width: 100%;
+    margin-left: 0;
+    overflow: visible;
+  }
+  .marquee-content {
+    width: 100%;
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    padding: 0;
+  }
+  .marquee-content > div:nth-child(n+9) {
+    display: none;
+  }
+  .marquee-item {
+    width: auto;
+    padding: 1rem 0;
+    justify-content: center;
+    border-radius: 12px;
+  }
+  .marquee-item span {
+    display: none;
+  }
+  .marquee-item svg {
+    height: 24px;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.4));
+  }
+}
+
 /* FAQ */
 .faq-list {
   max-width: 800px;

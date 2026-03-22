@@ -259,7 +259,7 @@ function App() {
               ].map((service, index) => (
                 <motion.div 
                   key={index}
-                  className="service-card glass"
+                  className="service-card"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
@@ -336,12 +336,14 @@ function App() {
                 <div className="video-showcase">
                   <div className="video-container">
                     <video 
-                      src="/camion.mp4" 
                       autoPlay 
                       loop 
                       muted 
                       playsInline
-                    />
+                      preload="auto"
+                    >
+                      <source src="/camion.mp4" type="video/mp4" />
+                    </video>
                     <div className="video-inner-overlay">
                       <div className="video-tag">
                         <Truck size={20} className="text-accent"/>
