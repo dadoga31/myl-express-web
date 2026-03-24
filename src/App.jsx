@@ -131,6 +131,51 @@ function App() {
   const [scrolled, setScrolled] = useState(false);
   const [modalConfig, setModalConfig] = useState({ isOpen: false, title: '', content: '' });
 
+  const [formData, setFormData] = useState({
+    nombre: '',
+    email: '',
+    telefono: '',
+    tipo: 'Particular',
+    mensaje: ''
+  });
+  const [formStatus, setFormStatus] = useState('');
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus('sending');
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/docasal28@gmail.com", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _language: "es",
+          _captcha: "false",
+          _subject: "Nuevo Lead WEB: " + formData.tipo + " - " + formData.nombre,
+          _template: "table",
+          Nombre: formData.nombre,
+          Email: formData.email,
+          Telefono: formData.telefono,
+          Perfil: formData.tipo,
+          Mensaje: formData.mensaje
+        })
+      });
+      if (response.ok) {
+        setFormStatus('success');
+        setFormData({ nombre: '', email: '', telefono: '', tipo: 'Particular', mensaje: '' });
+        setTimeout(() => setFormStatus(''), 6000);
+      } else {
+        setFormStatus('error');
+        setTimeout(() => setFormStatus(''), 6000);
+      }
+    } catch (error) {
+      setFormStatus('error');
+      setTimeout(() => setFormStatus(''), 6000);
+    }
+  };
+
   const openModal = (type) => {
     const titles = { aviso: 'Aviso Legal', privacidad: 'Política de Privacidad', cookies: 'Política de Cookies' };
     setModalConfig({ isOpen: true, title: titles[type], content: legalContent[type] });
@@ -500,7 +545,7 @@ function App() {
                     <MapPin className="text-accent" />
                     <div>
                       <h5>Nuestra Oficina</h5>
-                      <p>Calle Mercurio 545200 Illescas (Toledo)</p>
+                      <p>Calle Mercurio 5, 45200 Illescas (Toledo)</p>
                     </div>
                   </div>
                   
@@ -517,13 +562,68 @@ function App() {
               
               <div className="contact-form-placeholder">
                 <h3>Envíanos un Mensaje</h3>
-                <form className="minimal-form" action="https://formsubmit.co/docasal28@gmail.com" method="POST">
-                  <input type="hidden" name="_captcha" value="false" />
-                  <input type="hidden" name="_subject" value="Nuevo mensaje desde la web MYL Exprés" />
-                  <input type="text" name="nombre" placeholder="Tu Nombre" className="form-input" required />
-                  <input type="text" name="contacto" placeholder="Tu Email o Teléfono" className="form-input" required />
-                  <textarea name="mensaje" placeholder="¿En qué podemos ayudarte?" className="form-input form-textarea" required></textarea>
-                  <button type="submit" className="btn-primary" style={{width: '100%'}}>Enviar Mensaje</button>
+                <form className="minimal-form" onSubmit={handleFormSubmit}>
+                  <input 
+                    type="text" 
+                    placeholder="Tu Nombre o Empresa" 
+                    className="form-input" 
+                    required 
+                    value={formData.nombre}
+                    onChange={(e) => setFormData({...formData, nombre: e.target.value})}
+                  />
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem' }}>
+                    <input 
+                      type="email" 
+                      placeholder="Correo electrónico" 
+                      className="form-input" 
+                      required 
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    />
+                    <input 
+                      type="tel" 
+                      placeholder="Teléfono" 
+                      className="form-input" 
+                      required 
+                      value={formData.telefono}
+                      onChange={(e) => setFormData({...formData, telefono: e.target.value})}
+                    />
+                  </div>
+
+                  <select 
+                    className="form-input" 
+                    style={{ appearance: 'none', backgroundColor: 'rgba(15, 17, 26, 0.8)', color: 'white' }}
+                    value={formData.tipo}
+                    onChange={(e) => setFormData({...formData, tipo: e.target.value})}
+                    required
+                  >
+                    <option value="Particular">Soy un Particular</option>
+                    <option value="Empresa">Soy una Empresa / Tienda Online</option>
+                  </select>
+
+                  <textarea 
+                    placeholder="¿En qué podemos ayudarte?" 
+                    className="form-input form-textarea" 
+                    required
+                    value={formData.mensaje}
+                    onChange={(e) => setFormData({...formData, mensaje: e.target.value})}
+                  ></textarea>
+
+                  <button type="submit" className="btn-primary" style={{width: '100%'}} disabled={formStatus === 'sending'}>
+                    {formStatus === 'sending' ? 'Enviando Mensaje...' : 'Enviar Mensaje'}
+                  </button>
+                  
+                  {formStatus === 'success' && (
+                    <div style={{ padding: '1rem', background: 'rgba(34, 197, 94, 0.1)', border: '1px solid rgba(34, 197, 94, 0.3)', color: '#4ade80', borderRadius: '0.5rem', marginTop: '1rem', textAlign: 'center', fontSize: '0.95rem' }}>
+                      ¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.
+                    </div>
+                  )}
+                  {formStatus === 'error' && (
+                    <div style={{ padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#f87171', borderRadius: '0.5rem', marginTop: '1rem', textAlign: 'center', fontSize: '0.95rem' }}>
+                      Error al enviar. Revisa tu conexión o vuelve a intentarlo.
+                    </div>
+                  )}
                 </form>
               </div>
             </motion.div>
